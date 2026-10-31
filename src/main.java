@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 class sach {
@@ -9,9 +10,8 @@ class sach {
     int soluong;
 }
 
-public class main  {
+public class main {
 
-    // Nhap thong tin sach
     static void nhapsach(sach s, Scanner sc) {
         System.out.println("Nhap ma sach:");
         s.masach = sc.nextLine();
@@ -33,13 +33,42 @@ public class main  {
     }
 
     static void hienthi(sach s) {
-        System.out.println("\n===== THONG TIN SACH =====");
         System.out.println("Ma sach: " + s.masach);
         System.out.println("Ten sach: " + s.tensach);
         System.out.println("Tac gia: " + s.tacgia);
         System.out.println("Nam xuat ban: " + s.namxuatban);
         System.out.println("Don gia: " + s.dongia);
         System.out.println("So luong: " + s.soluong);
+    }
+
+    static void phanloaigia(sach s) {
+        if (s.dongia < 50000) {
+            System.out.println("Sach gia thap");
+        }
+        else if (s.dongia < 100000) {
+            System.out.println("Sach gia trung binh");
+        }
+        else if (s.dongia <= 200000) {
+            System.out.println("Sach gia cao");
+        }
+        else {
+            System.out.println("Sach dat biet");
+        }
+    }
+
+    static void phanloaitonkho(sach s) {
+        if (s.soluong == 0) {
+            System.out.println("Het sach");
+        }
+        else if (s.soluong <= 5) {
+            System.out.println("Sach sap het");
+        }
+        else if (s.soluong <= 20) {
+            System.out.println("Sach con it");
+        }
+        else {
+            System.out.println("Sach con nhieu");
+        }
     }
 
     static long tinhtien(sach s) {
@@ -56,9 +85,15 @@ public class main  {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
         sach s = new sach();
+
         nhapsach(s, sc);
         hienthi(s);
+
+        phanloaigia(s);
+
+        phanloaitonkho(s);
 
         System.out.println("Tien sach: " + tinhtien(s));
         System.out.println("Phi van chuyen: " + phivanchuyen(s));
