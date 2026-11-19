@@ -11,130 +11,98 @@ public class Test {
             sach s = new sach();
             System.out.println("Nhap thong tin sach thu " + (i + 1));
 
-            System.out.println("Ma sach: ");
-            s.masach = sc.nextLine();
+            System.out.println("Nhap ma sach: ");
+            s.setMasach(sc.nextLine());
 
-            System.out.println("Ten sach: ");
-            s.tensach = sc.nextLine();
+            System.out.println("Nhap ten sach: ");
+            s.setMasach(sc.nextLine());
 
-            System.out.println("Tac gia: ");
-            s.tacgia = sc.nextLine();
+            System.out.println("Nhap ten tac gia: ");
+            s.setTacgia(sc.nextLine());
 
-            System.out.println("Nam xuat ban: ");
-            s.namxuatban = sc.nextInt();
+            System.out.println("Nhap nam xuat ban");
+            s.setnamxuatban(sc.nextInt());
 
-            System.out.println("So luong: ");
-            s.soluong = sc.nextInt();
-            ds.add(s);
+            System.out.println("Nhap so luong:");
+            s.setsoluong(sc.nextInt());
+
         }
         System.out.println("Them sach thanh cong!");
     }
 
-    public static void insach(ArrayList<sach> ds) {
-        for (int i = 0; i < ds.size(); i++) {
-            ds.get(i).hienthithongtin();
-        }
+    static void insach(ArrayList<sach> ds) {
+        if (ds.isEmpty())
+            System.out.println("Danh sach rong!");
+        else
+            for (int i = 0; i < ds.size(); i++) {
+                System.out.println("Sach thu:  " + (i + 1));
+                ds.get(i).hienThiThongTin();
+            }
     }
 
     public static int timvitri(ArrayList<sach> ds, String ma) {
-        for (int i = 0; i < ds.size(); i++) {
-            if (ds.get(i).masach.equalsIgnoreCase(ma)) {
+        for (int i = 0; i < ds.size(); i++)
+            if (ma.equalsIgnoreCase(ds.get(i).getMasach()))
                 return i;
-            }
-        }
         return -1;
     }
 
     public static boolean timsach(ArrayList<sach> ds, String ma) {
         int vitri = timvitri(ds, ma);
-
         if (vitri != -1) {
-            ds.get(vitri).hienthithongtin();
+            ds.get(vitri).hienThiThongTin();
             return true;
         }
         return false;
     }
 
     public static void xoasach(ArrayList<sach> ds, Scanner sc) {
-        if (ds.isEmpty()) {
-            System.out.println("Danh sach sach rong!");
-            return;
-        }
-
         System.out.print("Nhap ma sach can xoa: ");
         String ma = sc.nextLine();
-
         int vitri = timvitri(ds, ma);
-
         if (vitri != -1) {
             ds.remove(vitri);
-            System.out.println("Xoa sach thanh cong!");
+            System.out.println("Xoa sach thanh cong");
         } else {
-            System.out.println("Khong tim thay sach!");
+            System.out.println("Khong tim thay sach");
         }
     }
 
-    public static void suasach(ArrayList<sach> ds, Scanner sc) {
-        if (ds.isEmpty()) {
-            System.out.println("Danh sach sach rong!");
-            return;
-        }
+    static void suasach(ArrayList<sach> ds, Scanner sc) {
         System.out.print("Nhap ma sach can sua: ");
         String ma = sc.nextLine();
 
-        int vitri = timvitri(ds, ma);
-        if (vitri == -1) {
+        int viTri = timvitri(ds, ma);
+
+        if (viTri == -1) {
             System.out.println("Khong tim thay sach!");
             return;
         }
-        sach s = ds.get(vitri);
 
-        System.out.println("\nNhap thong tin moi:");
+        sach s = ds.get(viTri);
 
-        System.out.print("Ten sach: ");
-        s.tensach = sc.nextLine();
+        System.out.print("Ten sach moi: ");
+        s.setTensach(sc.nextLine());
 
-        System.out.print("Tac gia: ");
-        s.tacgia = sc.nextLine();
+        System.out.print("Tac gia moi: ");
+        s.setTacgia(sc.nextLine());
 
-        System.out.print("Nam xuat ban: ");
-        s.namxuatban = sc.nextInt();
+        System.out.print("Nam xuat ban moi: ");
+        s.setnamxuatban(sc.nextInt());
 
-        System.out.print("So luong: ");
-        s.soluong = sc.nextInt();
+        System.out.print("So luong moi: ");
+        s.setsoluong(sc.nextInt());
         sc.nextLine();
 
         System.out.println("Cap nhat sach thanh cong!");
     }
 
     public static int tinhTongSoLuong(ArrayList<sach> ds, int n) {
-        if (n == 0)
+        if (n == 0) {
             return 0;
-        return ds.get(n - 1).soluong + tinhTongSoLuong(ds, n - 1);
-    }
-
-    public static void phanloaitonkho(sach s) {
-        if (s.soluong == 0)
-            System.out.println("Het sach");
-        else if (s.soluong <= 5)
-            System.out.println("Sach sap het");
-        else if (s.soluong <= 20)
-            System.out.println("Sach con it");
-        else
-            System.out.println("Sach con nhieu");
-
-    }
-
-    public static int timsoluonglonnhat(ArrayList<sach> ds) {
-        if (ds.isEmpty()) {
-            return 0;
+        } else {
+            return ds.get(n-1).getSoluong() + tinhTongSoLuong(ds, n - 1);
         }
-        int max = ds.get(0).soluong;
-        for (int i = 1; i < ds.size(); i++) {
-            if (ds.get(i).soluong > max)
-                max = ds.get(i).soluong;
-        }
-        return max;
     }
 
     public static void main(String[] args) {
