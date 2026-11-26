@@ -1,73 +1,64 @@
-public class sach {
-    private String masach;
-    private String tensach;
-    private String tacgia;
-    private int namxuatban;
-    private int soluong;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+public abstract class sach {
+    protected String masach;
+    protected LocalDate ngaynhap;
+    protected double dongia;
+    protected int soluong;
+    protected String nhaxuatban;
+
+    protected static final DateTimeFormatter DINH_DANG_NGAY =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public sach() {
     }
 
-    public String getMasach() {
-        return masach;
-    }
-
-    public void setMasach(String masach) {
+    public sach(String masach, LocalDate ngaynhap, double dongia,
+                int soluong, String nhaxuatban) {
         this.masach = masach;
+        this.ngaynhap = ngaynhap;
+        this.dongia = dongia;
+        this.soluong = soluong;
+        this.nhaxuatban = nhaxuatban;
     }
 
-    public String getTensach() {
-        return tensach;
-    }
+    protected void nhapThongTinChung(Scanner sc) {
+        System.out.print("Nhap ma sach: ");
+        masach = sc.nextLine();
 
-    public void setTensach(String tensach) {
-        this.tensach = tensach;
-    }
+        System.out.print("Nhap ngay nhap (dd/MM/yyyy): ");
+        ngaynhap = LocalDate.parse(sc.nextLine(), DINH_DANG_NGAY);
 
-    public String getTacgia() {
-        return tacgia;
-    }
+        System.out.print("Nhap don gia: ");
+        dongia = Double.parseDouble(sc.nextLine());
 
-    public void setTacgia(String tacgia) {
-        this.tacgia = tacgia;
-    }
+        System.out.print("Nhap so luong: ");
+        soluong = Integer.parseInt(sc.nextLine());
 
-    public int getNamxuatban() {
-        return namxuatban;
-    }
-
-    public void setnamxuatban(int namxuatban) {
-        if (namxuatban > 0 && namxuatban <= 2026)
-            this.namxuatban = namxuatban;
-        else
-            System.err.println("Nam xuat ban khong hop le");
-    }
-
-    public int getSoluong() {
-        return soluong;
-    }
-
-    public void setsoluong(int soluong) {
-        if (soluong >= 0)
-            this.soluong = soluong;
-        else
-            System.err.println("So luong khong the nho hon 0!");
-    }
-
-    //constructor có tham số
-    public sach(String masach, String tensach, String tacgia, int namxuatban, int soluong) {
-        this.masach = masach;
-        this.tensach = tensach;
-        this.tacgia = tacgia;
-        setnamxuatban(namxuatban);  
-        setsoluong(soluong);
+        System.out.print("Nhap nha xuat ban: ");
+        nhaxuatban = sc.nextLine();
     }
 
     public void hienThiThongTin() {
-    System.out.println("Ma sach: " + masach);
-    System.out.println("Ten sach: " + tensach);
-    System.out.println("Tac gia: " + tacgia);
-    System.out.println("Nam xuat ban: " + namxuatban);
-    System.out.println("So luong: " + soluong);
-}
+        System.out.println("Ma sach: " + masach);
+        System.out.println("Ngay nhap: " + ngaynhap.format(DINH_DANG_NGAY));
+        System.out.println("Don gia: " + dongia);
+        System.out.println("So luong: " + soluong);
+        System.out.println("Nha xuat ban: " + nhaxuatban);
+    }
+
+    public String getNhaxuatban() {
+        return nhaxuatban;
+    }
+
+    public double getDongia() {
+        return dongia;
+    }
+
+    public abstract void nhap(Scanner sc);
+
+    public abstract double tinhThanhTien();
 }
